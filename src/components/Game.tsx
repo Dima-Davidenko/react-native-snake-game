@@ -4,10 +4,11 @@ import { Colors } from '../styles/colors';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import { Coordinate, Direction, GestureEventType } from '../types/types';
 import Snake from './Snake';
+import { checkGameOver } from '../utils/checkGameOver';
 
 const SNAKE_INITIAL_POSITION = [{ x: 5, y: 5 }];
 const FOOD_INITIAL_POSITION = { x: 5, y: 20 };
-const GAME_BOUNDS = { xMin: 0, xMax: 35, yMin: 0, yMax: 63 };
+const GAME_BOUNDS = { xMin: 0, xMax: 35, yMin: 0, yMax: 71 };
 const MOVE_INTERVAL = 50;
 const SCORE_INCREMENT = 10;
 
@@ -30,7 +31,14 @@ export default function Game(): JSX.Element {
   const moveSnake = () => {
     const snakeHead = snake[0];
     const newHead = { ...snakeHead };
+
     //  game over check
+    if (checkGameOver(snakeHead, GAME_BOUNDS)) {
+      setIsGameOver(prevState => {
+        return !prevState;
+      });
+      return;
+    }
     switch (direction) {
       case Direction.Up:
         newHead.y -= 1;
