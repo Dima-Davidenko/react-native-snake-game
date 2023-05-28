@@ -5,6 +5,7 @@ import { PanGestureHandler } from 'react-native-gesture-handler';
 import { Coordinate, Direction, GestureEventType } from '../types/types';
 import Snake from './Snake';
 import { checkGameOver } from '../utils/checkGameOver';
+import Food from './Food';
 
 const SNAKE_INITIAL_POSITION = [{ x: 5, y: 5 }];
 const FOOD_INITIAL_POSITION = { x: 5, y: 20 };
@@ -88,6 +89,7 @@ export default function Game(): JSX.Element {
       <SafeAreaView style={styles.container}>
         <View style={styles.boundaries}>
           <Snake snake={snake} />
+          <Food x={food.x} y={food.y} />
         </View>
       </SafeAreaView>
     </PanGestureHandler>
