@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Colors } from '../styles/colors';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import { Coordinate, Direction, GestureEventType } from '../types/types';
+import Snake from './Snake';
 
 const SNAKE_INITIAL_POSITION = [{ x: 5, y: 5 }];
 const FOOD_INITIAL_POSITION = { x: 5, y: 20 };
@@ -43,7 +44,11 @@ export default function Game(): JSX.Element {
   };
   return (
     <PanGestureHandler onGestureEvent={handleGesture}>
-      <SafeAreaView style={styles.container}></SafeAreaView>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.boundaries}>
+          <Snake snake={snake} />
+        </View>
+      </SafeAreaView>
     </PanGestureHandler>
   );
 }
@@ -52,5 +57,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.primary,
+  },
+  boundaries: {
+    flex: 1,
+    borderColor: Colors.primary,
+    borderWidth: 12,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    backgroundColor: Colors.background,
   },
 });
